@@ -1,0 +1,54 @@
+import java.util.Scanner;
+
+public class QuizApplication {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("Welcome to the Quiz Application!");
+
+        System.out.print("Enter the number of questions: ");
+        int numQuestions = scanner.nextInt();
+        scanner.nextLine(); // Consume newline
+
+        // Define your questions and answers here
+        String[] questions = new String[numQuestions];
+        String[] answers = new String[numQuestions];
+
+        for (int i = 0; i < numQuestions; i++) {
+            System.out.print("Enter question " + (i + 1) + ": ");
+            questions[i] = scanner.nextLine();
+            System.out.print("Enter answer for question " + (i + 1) + ": ");
+            answers[i] = scanner.nextLine();
+        }
+
+        // Set the timer (in seconds)
+        int timerSeconds = 60;
+        long startTime = System.currentTimeMillis();
+
+        int score = 0;
+        for (int i = 0; i < numQuestions; i++) {
+            System.out.println("Question " + (i + 1) + ": " + questions[i]);
+            String userAnswer = scanner.nextLine();
+
+            if (userAnswer.equalsIgnoreCase(answers[i])) {
+                System.out.println("Correct!");
+                score++;
+            } else {
+                System.out.println("Incorrect! The correct answer is: " + answers[i]);
+            }
+
+            // Check if time is up
+            long elapsedTime = (System.currentTimeMillis() - startTime) / 1000;
+            if (elapsedTime >= timerSeconds) {
+                System.out.println("\nTime's up!");
+                break;
+            }
+        }
+
+        System.out.println("\nQuiz finished!");
+        System.out.println("Your score: " + score + "/" + numQuestions);
+
+        scanner.close();
+    }
+}
+
